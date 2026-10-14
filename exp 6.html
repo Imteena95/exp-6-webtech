@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happie Online Toy Store</title>
+
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: #eaf6ff;
+    color: #123c69;
+    margin: 0;
+    padding: 15px;
+}
+
+h1 {
+    color: white;
+    background-color: #1769aa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+section {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 850px;
+    border: 2px solid #58a6ff;
+    border-radius: 12px;
+    background-color: white;
+}
+
+h2 {
+    color: #1769aa;
+}
+
+#time {
+    font-size: 25px;
+    color: #0056b3;
+    font-weight: bold;
+}
+
+#message {
+    font-size: 20px;
+    color: #0077b6;
+    cursor: pointer;
+}
+
+#car {
+    position: relative;
+    left: 0px;
+    width: 100px;
+}
+
+#road {
+    height: 80px;
+    overflow: hidden;
+    background-color: #d6efff;
+    border-radius: 8px;
+}
+
+button {
+    padding: 10px 18px;
+    margin: 5px;
+    background-color: #168aad;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #034078;
+}
+
+.toy {
+    background-color: #f0f8ff;
+    border: 1px solid #8ecae6;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 10px;
+}
+
+.price {
+    color: #16803c;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>HAPPIE ONLINE TOY STORE</h1>
+<p>Find Your Favourite Toys Here!</p>
+
+<section>
+<h2>1. Digital Clock</h2>
+<span id="time"></span>
+
+<script>
+function displayTime() {
+    var d = new Date();
+
+    document.getElementById("time").innerHTML =
+        String(d.getHours()).padStart(2, "0") + ":" +
+        String(d.getMinutes()).padStart(2, "0") + ":" +
+        String(d.getSeconds()).padStart(2, "0");
+}
+
+displayTime();
+setInterval(displayTime, 1000);
+</script>
+</section>
+
+<section>
+<h2>2. Change Background Color</h2>
+<p>Our store background changes every 30 seconds.</p>
+
+<script>
+function changeColor() {
+    document.body.style.backgroundColor =
+        Math.random() < 0.5 ? "#eaf6ff" : "#dbeafe";
+}
+
+setInterval(changeColor, 30000);
+</script>
+</section>
+
+<section>
+<h2>3. Toy Store Message</h2>
+
+<p id="message"
+onmouseover="this.style.fontSize='30px'"
+onmouseout="this.style.fontSize='20px'">
+Explore Our Amazing Toys!
+</p>
+</section>
+
+<section>
+<h2>4. Moving Toy Car</h2>
+
+<div id="road">
+<img id="car"
+src="https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/g/68e146b81c320d1662e362e9/red-metal-car-640x640.jpg"
+alt="Toy Car">
+</div>
+
+<button onclick="moveCar()">MOVE</button>
+<button onclick="stopCar()">STOP</button>
+
+<script>
+var car = document.getElementById("car");
+var position = 0;
+var timer;
+
+function moveCar() {
+    clearTimeout(timer);
+
+    position += 5;
+
+    if (position > 500) {
+        position = 0;
+    }
+
+    car.style.left = position + "px";
+    timer = setTimeout(moveCar, 50);
+}
+
+function stopCar() {
+    clearTimeout(timer);
+}
+</script>
+</section>
+
+<section>
+<h2>5. Our Toy Products</h2>
+
+<div id="products"></div>
+
+<p><b>Items in Cart: <span id="count">0</span></b></p>
+
+<script>
+var toys = [
+    {name: "Toy Car", price: 200},
+    {name: "Teddy Bear", price: 300},
+    {name: "Toy Robot", price: 500},
+    {name: "Building Blocks", price: 250}
+];
+
+var output = "";
+
+for (var i = 0; i < toys.length; i++) {
+    output += '<div class="toy">' +
+        "<h3>" + toys[i].name + "</h3>" +
+        '<p class="price">Price: Rs. ' + toys[i].price + "</p>" +
+        '<button onclick="addCart()">Add to Cart</button>' +
+        "</div>";
+}
+
+document.getElementById("products").innerHTML = output;
+
+var count = 0;
+
+function addCart() {
+    count++;
+    document.getElementById("count").innerHTML = count;
+}
+</script>
+</section>
+
+</body>
+</html>
